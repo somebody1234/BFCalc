@@ -1,0 +1,207 @@
+﻿<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:BFCalc"
+    x:Class="BFCalc.MainWindow"
+    mc:Ignorable="d"
+    Title="Brave Frontier Calculator" Height="350" Width="525">
+    <Grid>
+        <TabControl x:Name="Tabs">
+            <TabItem x:Name="Items" Header="Items" DataContext="{Binding Source={x:Static local:ItemData.CurrentItem}}">
+                <Grid>
+                    <TextBlock x:Name="ItemSelectorText" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Item:"
+                               VerticalAlignment="Top" Margin="0,9,0,0" />
+                    <ComboBox x:Name="ItemSelector" ItemsSource="{Binding Source={x:Static local:ItemData.ItemNames}}"
+                              HorizontalAlignment="Left" Margin="31,10,0,0" VerticalAlignment="Top"
+                              SelectionChanged="OnItemChanged" IsEditable="True" Width="217" />
+                    <CheckBox x:Name="CraftablesOnly" Content="Craftables only" HorizontalAlignment="Left"
+                              Margin="274,10,0,0" VerticalAlignment="Top" Checked="OnCraftablesOnlyChecked"
+                              Unchecked="OnCraftablesOnlyUnchecked" />
+                    <TextBlock x:Name="ItemNameText" HorizontalAlignment="Left" Margin="1,33,0,0" TextWrapping="Wrap"
+                               Text="Name:" VerticalAlignment="Top" />
+                    <TextBlock x:Name="ItemName" HorizontalAlignment="Left" Margin="49,33,0,0" TextWrapping="Wrap"
+                               VerticalAlignment="Top" Text="{Binding Name}"/>
+                    <TextBlock x:Name="ItemIdText" HorizontalAlignment="Left" Margin="250,33,0,0" TextWrapping="Wrap"
+                               Text="ID:" VerticalAlignment="Top" />
+                    <TextBlock x:Name="ItemId" HorizontalAlignment="Left" Margin="275,33,0,0" TextWrapping="Wrap"
+                               VerticalAlignment="Top" Text="{Binding Id}"/>
+                    <TextBlock x:Name="KarmaText" HorizontalAlignment="Left" Margin="2,102,0,0" TextWrapping="Wrap"
+                               Text="Karma needed:" VerticalAlignment="Top" />
+                    <TextBlock x:Name="Karma" HorizontalAlignment="Left" Margin="102,102,0,0" TextWrapping="Wrap"
+                               VerticalAlignment="Top" Text="{Binding Recipe.Karma}"/>
+                    <TextBlock x:Name="MaterialsText" HorizontalAlignment="Left" Margin="2,123,0,0" TextWrapping="Wrap"
+                               Text="Materials Needed:" VerticalAlignment="Top" />
+                    <ListBox x:Name="Materials" HorizontalAlignment="Left" Height="80" Margin="103,123,0,0"
+                             VerticalAlignment="Top" MouseDoubleClick="OnMaterialDoubleClicked" Width="163" ItemsSource="{Binding MaterialStrings}" />
+                    <TextBlock x:Name="DescriptionText" HorizontalAlignment="Left" Margin="283,105,0,0"
+                               TextWrapping="Wrap" Text="Description:" VerticalAlignment="Top" />
+                    <TextBlock x:Name="Description" HorizontalAlignment="Left" Margin="283,123,0,0" TextWrapping="Wrap"
+                               VerticalAlignment="Top" Height="157" Width="192" Text="{Binding Description}" />
+                    <TextBlock x:Name="MaxStackText" HorizontalAlignment="Left" Margin="2,86,0,0" TextWrapping="Wrap"
+                               Text="Maximum Stack:" VerticalAlignment="Top" />
+                    <TextBlock x:Name="MaxStack" HorizontalAlignment="Left" Margin="103,86,0,0" TextWrapping="Wrap"
+                               VerticalAlignment="Top" Text="{Binding MaxStack}"/>
+                    <TextBlock x:Name="SellPriceText" HorizontalAlignment="Left" Margin="283,89,0,0"
+                               TextWrapping="Wrap" VerticalAlignment="Top" Text="Sell Price:"/>
+                    <TextBlock x:Name="SellPrice" HorizontalAlignment="Left" Margin="346,89,0,0" TextWrapping="Wrap"
+                               VerticalAlignment="Top" Height="13" Text="{Binding SellPrice}"/>
+                    <TextBlock x:Name="UsedInText" HorizontalAlignment="Left" Margin="0,208,0,0" TextWrapping="Wrap"
+                               Text="Used in:" VerticalAlignment="Top" />
+                    <ListBox x:Name="UsedIn" HorizontalAlignment="Left" Height="72" Margin="102,208,0,0"
+                             VerticalAlignment="Top" Width="164" ItemsSource="{Binding UsedIn}"  MouseDoubleClick="OnUsedInDoubleClicked" />
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="Units" Header="Units">
+                <Grid>
+                    <TabControl x:Name="UnitTabs" HorizontalAlignment="Left" Height="254" Margin="0,37,0,0"
+                                VerticalAlignment="Top" Width="510">
+                        <TabItem x:Name="Evolution" Header="Evolution" DataContext="{Binding Source={x:Static local:EvoData.CurrentEvo}}">
+                            <Grid>
+                                <TextBlock x:Name="RarityText" HorizontalAlignment="Left" Margin="0,6,0,0"
+                                           TextWrapping="Wrap" Text="Rarity:" VerticalAlignment="Top" />
+                                <TextBlock x:Name="Rarity" HorizontalAlignment="Left" Margin="38,8,0,0"
+                                           TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding RarityString}"/>
+                                <TextBlock x:Name="ZelText" HorizontalAlignment="Left" Margin="0,29,0,0"
+                                           TextWrapping="Wrap" Text="Zel Needed:" VerticalAlignment="Top" />
+                                <TextBlock x:Name="Zel" HorizontalAlignment="Left" Margin="85,29,0,0"
+                                           TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding ZelNeeded}"/>
+                                <TextBlock x:Name="EvolvesToText" HorizontalAlignment="Left" Margin="0,50,0,0"
+                                           TextWrapping="Wrap" Text="Evolves To:" VerticalAlignment="Top" />
+                                <TextBlock x:Name="EvolvesTo" MouseLeftButtonDown="OnEvolveToClicked"
+                                           HorizontalAlignment="Left" Margin="71,50,0,0" TextWrapping="Wrap"
+                                           VerticalAlignment="Top" Text="{Binding EvolvesTo.Name}"/>
+                                <TextBlock x:Name="EvoMatsText" HorizontalAlignment="Left" Margin="0,71,0,0"
+                                           TextWrapping="Wrap" Text="Evolution Materials:" VerticalAlignment="Top" />
+                                <ListBox x:Name="EvoMats" HorizontalAlignment="Left" Height="134" Margin="0,92,0,0"
+                                         VerticalAlignment="Top" Width="256" ItemsSource="{Binding MatNames}"/>
+                            </Grid>
+                        </TabItem>
+                        <TabItem x:Name="Skills" Header="Leader/Extra Skill" DataContext="{Binding Source={x:Static local:UnitData.CurrentSkill}}">
+                            <Grid>
+                                <TextBlock x:Name="SkillTypeText" HorizontalAlignment="Left" Margin="0,0,0,0"
+                                         Text="Leader Skill or Extra Skill:"
+                                         VerticalAlignment="Top"/>
+                                <ComboBox x:Name="SkillType" HorizontalAlignment="Left" Margin="140,0,0,0"
+                                          VerticalAlignment="Top" Width="120" SelectionChanged="OnLsEsChanged"
+                                          ItemsSource="{Binding Source={x:Static local:UnitData.LsEs}}"/>
+                                <TextBlock x:Name="SkillDescText" HorizontalAlignment="Left" Margin="0,31,0,0" TextWrapping="Wrap" Text="Description:" VerticalAlignment="Top"/>
+                                <TextBlock x:Name="SkillDesc" HorizontalAlignment="Left" Margin="82,31,0,0" TextWrapping="Wrap" Text="{Binding Description}" VerticalAlignment="Top" Height="51" Width="150"/>
+                                <TextBlock x:Name="SkillNameText" HorizontalAlignment="Left" Margin="250,30,0,0" TextWrapping="Wrap" Text="Name:" VerticalAlignment="Top"/>
+                                <TextBlock x:Name="SkillName" HorizontalAlignment="Left" Margin="290,30,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" />
+                                <TextBlock x:Name="SkillIdText" HorizontalAlignment="Left" Margin="250,50,0,0" TextWrapping="Wrap" Text="ID:" VerticalAlignment="Top"/>
+                                <TextBlock x:Name="SkillId" HorizontalAlignment="Left" Margin="270,50,0,0" TextWrapping="Wrap" Text="{Binding Id}" VerticalAlignment="Top" />
+                                <TextBlock x:Name="SkillTargetText" HorizontalAlignment="Left" Margin="250,70,0,0" TextWrapping="Wrap" Text="Target:" VerticalAlignment="Top"/>
+                                <TextBlock x:Name="SkillTarget" HorizontalAlignment="Left" Margin="290,70,0,0" TextWrapping="Wrap" Text="{Binding Target}" VerticalAlignment="Top" />
+                                <TextBlock x:Name="EffectsText" HorizontalAlignment="Left" Margin="0,80,0,0" TextWrapping="Wrap" Text="Effects:" VerticalAlignment="Top"/>
+                                <ListBox x:Name="Effects" HorizontalAlignment="Left" Margin="0,100,0,0" ItemsSource="{Binding EffectStrings}" VerticalAlignment="Top" Height="130" Width="230"/>
+
+                            </Grid>
+                        </TabItem>
+                        <TabItem x:Name="Bbs" Header="Brave Bursts">
+                            <Grid>
+                                <TextBlock x:Name="BbTypeText" HorizontalAlignment="Left" Margin="0,0,0,0"
+                                         Text="Brave Burst Type:"
+                                         VerticalAlignment="Top"/>
+                                <ComboBox x:Name="BbType" HorizontalAlignment="Left" Margin="100,0,0,0"
+                                          VerticalAlignment="Top" Width="120" SelectionChanged="OnBbTypeChanged"
+                                          ItemsSource="{Binding Source={x:Static local:UnitData.LsEs}}"/>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                    <TextBlock x:Name="UnitSelectorText" HorizontalAlignment="Left" Margin="4,10,0,0"
+                               TextWrapping="Wrap" Text="Unit:" VerticalAlignment="Top" />
+                    <ComboBox x:Name="UnitSelector" HorizontalAlignment="Left" Margin="34,10,0,0"
+                              VerticalAlignment="Top" SelectionChanged="OnUnitChanged"
+                              ItemsSource="{Binding Source={x:Static local:UnitData.UnitNames}}" IsEditable="True"
+                              Width="225" />
+                    <TextBlock x:Name="UnitNameText" HorizontalAlignment="Left" Margin="276,13,0,0" TextWrapping="Wrap"
+                               Text="Name:" VerticalAlignment="Top" />
+                    <TextBlock x:Name="UnitName" HorizontalAlignment="Left" Margin="331,13,0,0" TextWrapping="Wrap"
+                               VerticalAlignment="Top" />
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="ItemKeepDiscard" Header="Item Keep/Discard">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition x:Name="Row1"  Height="91"/>
+                        <RowDefinition x:Name="Row2" Height="200"/>
+                    </Grid.RowDefinitions>
+                    <DataGrid Grid.Row="1" x:Name="MaterialKeepOrDiscard" HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                              IsReadOnly="true" Height="200" Width="255"
+                              DataContext="{Binding Source={x:Static local:KeepDiscard.FilteredMaterials2}}"
+                              ItemsSource="{Binding}" AutoGenerateColumns="False">
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Keep}" Value="False">
+                                        <Setter Property="Background" Value="#FFCCCC" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Keep}" Value="True">
+                                        <Setter Property="Background" Value="#CCFFCC" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.RowStyle>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="Material" Header="Material" Binding="{Binding Material}" />
+                            <DataGridTemplateColumn x:Name="KeepMaterial" Header="Keep">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate DataType="local:KeepMaterial">
+                                        <Image x:Name="Trash" Source="Images/trash.png" />
+                                        <DataTemplate.Triggers>
+                                            <DataTrigger Binding="{Binding Keep}" Value="False">
+                                                <Setter TargetName="Trash" Property="Source" Value="Images/trash.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Keep}" Value="True">
+                                                <Setter TargetName="Trash" Property="Source"
+                                                        Value="Images/no trash.png" />
+                                            </DataTrigger>
+                                        </DataTemplate.Triggers>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <DataGrid Grid.Row="1" x:Name="CraftableSelector" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                              Height="200" Width="255" DataContext="{Binding Source={x:Static local:KeepDiscard.Keep}}"
+                              ItemsSource="{Binding}" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="Craftable" Header="Craftable" Binding="{Binding Craftable}"
+                                                IsReadOnly="True" />
+                            <DataGridTemplateColumn x:Name="KeepCraftable2" Header="Keep" IsReadOnly="False">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate DataType="local:KeepCraftable">
+                                        <CheckBox x:Name="KeepCheckBox" HorizontalAlignment="Center"
+                                                  Checked="OnKeepChecked" Unchecked="OnKeepUnchecked" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <TextBlock Grid.Row="0" x:Name="QuickSearchText" HorizontalAlignment="Left" Margin="0,10,0,0"
+                               TextWrapping="Wrap" Text="Quick Search:" VerticalAlignment="Top" />
+                    <ComboBox Grid.Row="0" x:Name="QuickSearch"
+                              ItemsSource="{Binding Source={x:Static local:ItemData.CraftableNames}}"
+                              HorizontalAlignment="Left" Margin="89,3,0,0" VerticalAlignment="Top"
+                              SelectionChanged="OnQuickSearchChanged" IsEditable="True" Width="216" />
+                    <TextBlock Grid.Row="0" x:Name="QuickSearchResult" HorizontalAlignment="Left" Margin="310,10,0,0"
+                               TextWrapping="Wrap" VerticalAlignment="Top" Width="82" />
+                    <Button Grid.Row="0" x:Name="SaveButton" Content="Save" HorizontalAlignment="Left" Margin="458,3,0,0"
+                            VerticalAlignment="Top" Width="42" Click="OnSaveClicked" />
+                    <TextBlock Grid.Row="0" x:Name="FilterText" HorizontalAlignment="Left" Margin="0,40,0,0" TextWrapping="Wrap"
+                               Text="Filter:" VerticalAlignment="Top" />
+                    <TextBox Grid.Row="0" x:Name="Filter" HorizontalAlignment="Left" Margin="42,38,0,0" VerticalAlignment="Top"
+                             Width="120" TextChanged="OnFilterChanged" />
+                    <CheckBox Grid.Row="0" x:Name="ShowKeep" HorizontalAlignment="Left" IsChecked="True" Margin="10,65,0,0"
+                              VerticalAlignment="Top" Content="Show items to keep" Checked="AddKeepToSource"
+                              Unchecked="TakeKeepFromSource" />
+                    <CheckBox Grid.Row="0" x:Name="ShowDiscard" HorizontalAlignment="Left" IsChecked="True" Margin="150,65,0,0"
+                              VerticalAlignment="Top" Content="Show items to discard" Checked="AddDiscardToSource"
+                              Unchecked="TakeDiscardFromSource" />
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
